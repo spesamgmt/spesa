@@ -8,7 +8,7 @@
 <script type="text/javascript">
 function forward(){
 	
-	window.location.href = "/spesa/all/codeGenerator/create";
+	window.location.href = "/spesa/all/accountCode/create";
 }
 </script>
 </head>

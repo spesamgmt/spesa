@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spesa.codeGenerator.CodeWritingUtility;
-import com.spesa.codeGenerator.form.CodeGeneratorForm;
-import com.spesa.codeGenerator.form.FieldForm;
+import com.spesa.codeGenerator.utility.CodeWritingUtility;
+import com.spesa.pojo.DTO.CodeGeneratorDTO;
+import com.spesa.pojo.DTO.FieldDTO;
 
 @Controller
 @RequestMapping(method=RequestMethod.GET,  value="/codeGenerator")
@@ -24,38 +24,44 @@ public class CodeGeneratorController {
 	public ModelAndView loadCreatePage(){
 
 		ModelAndView modelAndView = new ModelAndView();
-		CodeGeneratorForm codeGeneratorForm = new CodeGeneratorForm();
-		FieldForm fieldForm = new FieldForm();
-		fieldForm.setElement("eeee");
-		fieldForm.setElement("rrr");
+		CodeGeneratorDTO CodeGeneratorDTO = new CodeGeneratorDTO();
+		FieldDTO FieldDTO = new FieldDTO();
+		FieldDTO.setElement("eeee");
+		FieldDTO.setElement("rrr");
 		
 		
-		FieldForm fieldForm1 = new FieldForm();
-		fieldForm1.setElement("eeee");
-		fieldForm1.setElement("rrr");
+		FieldDTO FieldDTO1 = new FieldDTO();
+		FieldDTO1.setElement("eeee");
+		FieldDTO1.setElement("rrr");
 		
 		List Filed = new ArrayList();
-		Filed.add(fieldForm1);
-		Filed.add(fieldForm);
-		codeGeneratorForm.setFieldList(Filed);
+		Filed.add(FieldDTO1);
+		Filed.add(FieldDTO);
+		CodeGeneratorDTO.setFieldList(Filed);
 		
 		
-		modelAndView.addObject("fields", codeGeneratorForm);
+		modelAndView.addObject("fields", CodeGeneratorDTO);
 		modelAndView.setViewName("main_multi");	
 		return modelAndView;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,  value="/generate")
-	public ModelAndView generate(@ModelAttribute("fields") CodeGeneratorForm codeGeneratorForm, HttpServletRequest request){
+	public ModelAndView generate(@ModelAttribute("fields") CodeGeneratorDTO CodeGeneratorDTO, HttpServletRequest request){
 		System.out.println(request.getContextPath());
 		
 		CodeWritingUtility codeWritingUtility = new CodeWritingUtility();
 		
-		codeWritingUtility.writeJSP(codeGeneratorForm, request.getContextPath());
-		codeWritingUtility.writeController(codeGeneratorForm, request.getContextPath());
-		codeWritingUtility.writeForm(codeGeneratorForm);
+		codeWritingUtility.writeJSP(CodeGeneratorDTO, request.getContextPath());
+		codeWritingUtility.writeController(CodeGeneratorDTO, request.getContextPath());
+		codeWritingUtility.writeForm(CodeGeneratorDTO);
+		codeWritingUtility.writeDo(CodeGeneratorDTO);
+		codeWritingUtility.writeService(CodeGeneratorDTO, request.getContextPath());
+		codeWritingUtility.writeServiceImpl(CodeGeneratorDTO, request.getContextPath());
+		codeWritingUtility.writeDAO(CodeGeneratorDTO, request.getContextPath());
+		codeWritingUtility.writeDaoImpl(CodeGeneratorDTO, request.getContextPath());
+		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("headerMsg", "check the created master through this <a href=\""+request.getContextPath()+"/all/"+codeWritingUtility.formName+"/create\">link</a>") ;
+		modelAndView.addObject("headerMsg", "check the created master related files at C:\\generated_code\\"+codeWritingUtility.formName) ;
 		modelAndView.setViewName("acknowledgement");
 		return modelAndView;
 	}
