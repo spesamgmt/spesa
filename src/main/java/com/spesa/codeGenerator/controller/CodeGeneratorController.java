@@ -26,19 +26,10 @@ public class CodeGeneratorController {
 		ModelAndView modelAndView = new ModelAndView();
 		CodeGeneratorDTO CodeGeneratorDTO = new CodeGeneratorDTO();
 		FieldDTO FieldDTO = new FieldDTO();
-		FieldDTO.setElement("eeee");
-		FieldDTO.setElement("rrr");
-		
-		
-		FieldDTO FieldDTO1 = new FieldDTO();
-		FieldDTO1.setElement("eeee");
-		FieldDTO1.setElement("rrr");
 		
 		List Filed = new ArrayList();
-		Filed.add(FieldDTO1);
 		Filed.add(FieldDTO);
 		CodeGeneratorDTO.setFieldList(Filed);
-		
 		
 		modelAndView.addObject("fields", CodeGeneratorDTO);
 		modelAndView.setViewName("main_multi");	
