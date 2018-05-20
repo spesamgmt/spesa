@@ -1,31 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link href="/CarRentalBilling/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-<link href="/CarRentalBilling/css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Car Rental Invoice</title>
-</head>
-<body>
-<%@ include file="/JSPs/acknowledgement.jsp" %>
-	 <div class="col-md-4 first-one">
-	  <div class="first-one-inner">
-	     <h3 class="tittle">Sign up</h3>
-		<form:form action="/CarRentalBilling/all/save" method="post">
-			<form:input  path="firstName" class="text" value="First Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'First Name';}" />
-			<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-			<div class="submit"><input type="submit" value="Sign in" ></div>
-			<div class="clearfix"></div>
-			<div class="new">
-				<h3><a href="#">Forgot your password ?</a></h3>
-			</div>-
-		</form:form>
-	   </div>
-	   <a href="#" class="hvr-bounce-to-bottom">Sign in with Twitter</a>
-      </div>
 
-</body>
-</html>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<div class="container" style="width: 100%; background: #f0f8ff">
+	<div class="clearfix" style="height: 60px"></div>
+	<form:form action="submitLogin.sem" method="POST" commandName="loginForm">
+		<fieldset style="width: 300px; margin: auto;">
+			<legend>Login</legend>
+			<div class="form-group">
+				<!-- <span class="input-group-addon" id="basic-addon1">@</span> -->
+				<label for="username"><spring:message code="login.username" /></label>
+				<spring:message code="login.enter.username" var="userNameTtip"/>
+				<form:input type="text" path="userName" class="form-control"
+					placeholder="${userNameTtip}" aria-describedby="basic-addon1" />
+			</div>
+
+			<div class="form-group">
+				<!-- <span class="input-group-addon" id="basic-addon1">@</span> -->
+				<label for="password"><spring:message code="login.password" /></label>
+				<spring:message code="login.enter.password" var="passwordTtip"/>
+				<form:password path="password" class="form-control"
+					placeholder="${passwordTtip}" aria-describedby="basic-addon1" />
+			</div>
+			<button type="submit" class="btn btn-default"><spring:message code="common.Submit" /></button>
+		</fieldset>
+	</form:form>
+	<div class="clearfix" style="height: 60px"></div>
+</div>
